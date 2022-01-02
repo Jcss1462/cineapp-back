@@ -69,7 +69,6 @@ public class UsuariosRestController {
 	@PutMapping(value = "/update")
 	public ResponseEntity<?> update(@Valid @RequestBody UsuariosDTO usuariosDTO) throws Exception {
 		log.debug("Request to update Usuarios: {}", usuariosDTO);
-		log.debug("Request to update Usuarios: {}", usuariosDTO);
 	
 		Usuarios usuarios = usuariosMapper.usuariosDTOToUsuarios(usuariosDTO);
 		usuarios = usuariosService.update(usuarios);
