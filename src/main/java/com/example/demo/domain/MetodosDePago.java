@@ -7,6 +7,8 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -29,29 +31,33 @@ public class MetodosDePago implements java.io.Serializable {
 
 	@Id
 	@Column(name = "id_metodo", unique = true, nullable = false)
-	@NotNull
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idMetodo;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_estado")
+	@JoinColumn(name = "id_estado_metodo_de_pago")
 	@NotNull
 	private EstadosMetodoDePago estadosMetodoDePago;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "email")
+	@JoinColumn(name = "email_usuario")
 	@NotNull
 	private Usuarios usuarios;
 
 	@NotNull
 	@Column(name = "cvv", nullable = false)
 	private Integer cvv;
+	
 	@NotNull
 	@Column(name = "fecha_expiracion", nullable = false)
 	private Date fechaExpiracion;
+	
 	@NotNull
 	@NotEmpty
 	@Size(max = 45)
 	@Column(name = "nombre_tarjetahabiente", nullable = false)
 	private String nombreTarjetahabiente;
+	
 	@NotNull
 	@Column(name = "numero_tarjeta", nullable = false)
 	private Integer numeroTarjeta;
@@ -60,12 +66,11 @@ public class MetodosDePago implements java.io.Serializable {
 	private List<Compras> comprases = new ArrayList<>();
 	
 	
-
 	public MetodosDePago() {
 		super();
 	}
 
-	public MetodosDePago(@NotNull Integer idMetodo, @NotNull EstadosMetodoDePago estadosMetodoDePago,
+	public MetodosDePago(Integer idMetodo, @NotNull EstadosMetodoDePago estadosMetodoDePago,
 			@NotNull Usuarios usuarios, @NotNull Integer cvv, @NotNull Date fechaExpiracion,
 			@NotNull @NotEmpty @Size(max = 45) String nombreTarjetahabiente, @NotNull Integer numeroTarjeta,
 			List<Compras> comprases) {

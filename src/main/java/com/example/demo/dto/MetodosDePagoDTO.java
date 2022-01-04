@@ -7,36 +7,42 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
-* @author Zathura Code Generator Version 9.0 http://zathuracode.org
-* www.zathuracode.org
-*
-*/
+ * @author Zathura Code Generator Version 9.0 http://zathuracode.org
+ *         www.zathuracode.org
+ *
+ */
 public class MetodosDePagoDTO implements Serializable {
-    private static final long serialVersionUID = 1L;
-    @NotNull
-    private Integer cvv;
-    @NotNull
-    private Date fechaExpiracion;
-    @NotNull
-    private Integer idMetodo;
-    @NotNull
-    @NotEmpty
-    @Size(max = 45)
-    private String nombreTarjetahabiente;
-    @NotNull
-    private Integer numeroTarjeta;
-    private Integer idEstado_EstadosMetodoDePago;
-    private String email_Usuarios;
-    
-    
+
+
+	private static final long serialVersionUID = 1L;
 	
-    public MetodosDePagoDTO() {
+	private Integer idMetodo;
+	
+	@NotNull
+	private Integer cvv;
+	
+	@NotNull
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	private Date fechaExpiracion;
+
+	@NotNull
+	@NotEmpty
+	@Size(max = 45)
+	private String nombreTarjetahabiente;
+
+	@NotNull
+	private Integer numeroTarjeta;
+	private Integer idEstado_EstadosMetodoDePago;
+	private String email_Usuarios;
+
+	public MetodosDePagoDTO() {
 		super();
 	}
 
-	public MetodosDePagoDTO(@NotNull Integer cvv, @NotNull Date fechaExpiracion, @NotNull Integer idMetodo,
+	public MetodosDePagoDTO(@NotNull Integer cvv, @NotNull Date fechaExpiracion, Integer idMetodo,
 			@NotNull @NotEmpty @Size(max = 45) String nombreTarjetahabiente, @NotNull Integer numeroTarjeta,
 			Integer idEstado_EstadosMetodoDePago, String email_Usuarios) {
 		super();
@@ -108,10 +114,5 @@ public class MetodosDePagoDTO implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-    
-     
-    
-    
-    
-    
+
 }

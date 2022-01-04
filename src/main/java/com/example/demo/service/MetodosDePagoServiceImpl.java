@@ -1,5 +1,4 @@
-package  com.example.demo.service;
-
+package com.example.demo.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,29 +16,29 @@ import com.example.demo.domain.MetodosDePago;
 import com.example.demo.repository.MetodosDePagoRepository;
 
 /**
-* @author Zathura Code Generator Version 9.0 http://zathuracode.org/
-* www.zathuracode.org
-* 
-*/
+ * @author Zathura Code Generator Version 9.0 http://zathuracode.org/
+ *         www.zathuracode.org
+ * 
+ */
 
 @Scope("singleton")
 @Service
-public class MetodosDePagoServiceImpl implements MetodosDePagoService{
+public class MetodosDePagoServiceImpl implements MetodosDePagoService {
 
 	@Autowired
 	private MetodosDePagoRepository metodosDePagoRepository;
-	
+
 	@Autowired
 	private Validator validator;
-                
-    @Override        		
-	public void validate(MetodosDePago metodosDePago)throws ConstraintViolationException{		
-		
-		Set<ConstraintViolation<MetodosDePago>> constraintViolations =validator.validate(metodosDePago);
-		 if (!constraintViolations.isEmpty()) {			
+
+	@Override
+	public void validate(MetodosDePago metodosDePago) throws ConstraintViolationException {
+
+		Set<ConstraintViolation<MetodosDePago>> constraintViolations = validator.validate(metodosDePago);
+		if (!constraintViolations.isEmpty()) {
 			throw new ConstraintViolationException(constraintViolations);
 		}
-		
+
 	}
 
 	@Override
@@ -56,8 +55,10 @@ public class MetodosDePagoServiceImpl implements MetodosDePagoService{
 
 	@Override
 	public MetodosDePago save(MetodosDePago entity) throws Exception {
+		// valido
+		validate(entity);
 		// TODO Auto-generated method stub
-		return null;
+		return metodosDePagoRepository.save(entity);
 	}
 
 	@Override
@@ -69,13 +70,19 @@ public class MetodosDePagoServiceImpl implements MetodosDePagoService{
 	@Override
 	public void delete(MetodosDePago entity) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void deleteById(Integer id) throws Exception {
-		// TODO Auto-generated method stub
-		
+		if (id == null) {
+			throw new Exception("Id vacio");
+		}
+		if (!metodosDePagoRepository.existsById(id)) {
+
+			throw new Exception("El metodo de pago con id: " + id + " no existe");
+		}
+		metodosDePagoRepository.deleteById(id);
 	}
 
 	@Override
@@ -83,6 +90,11 @@ public class MetodosDePagoServiceImpl implements MetodosDePagoService{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
+	@Override
+	public List<MetodosDePago> misMetodosDePago(String email) throws Exception {
+		// TODO Auto-generated method stub
+		return metodosDePagoRepository.misMetodosDePago(email);
+	}
 
 }
